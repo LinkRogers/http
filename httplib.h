@@ -126,7 +126,7 @@ using socket_t = SOCKET;
 #include <sys/select.h>
 #include <sys/socket.h>
 #include <unistd.h>
-
+#include <iostream>
 using socket_t = int;
 #define INVALID_SOCKET (-1)
 #endif //_WIN32
@@ -149,6 +149,8 @@ using socket_t = int;
 #include <string>
 #include <sys/stat.h>
 #include <thread>
+
+using namespace::std;
 
 #ifdef CPPHTTPLIB_OPENSSL_SUPPORT
 #include <openssl/err.h>
@@ -3176,6 +3178,7 @@ inline bool Server::parse_request_line(const char *s, Request &req) {
 
 inline bool Server::write_response(Stream &strm, bool last_connection,
                                    const Request &req, Response &res) {
+  //std::cout << "in write responsse" << std::endl;
   assert(res.status != -1);
 
   if (400 <= res.status && error_handler_) { error_handler_(req, res); }
