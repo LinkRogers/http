@@ -5,36 +5,20 @@
 
 using namespace std;
 
-//print all headers of a req/response
-void print_header(const httplib::Headers headers);
-
 int main(void)
 {
-  // IMPORTANT: 1st parameter must be a hostname or an IP adress string.
-  httplib::Client cli("localhost", 1234);
 
+  int arr[2];
+  arr[0] = 1;
+  arr[1] = 2;
+  int *pint = arr;
 
-  auto head_res = cli.Head("/stream");
-  print_header(head_res->headers);
+  cout << "pint+!: " << pint+1 << endl;
+  cout << "arr+1: " << arr+1 << endl;
+  cout << "&arr+1: " << &arr+1 << endl;
 
-  httplib::Headers headers = {
-  {"Range", "bytes=0-5"}
-  };
-  auto res = cli.Get("/stream");
-  //auto res = cli.Post("/content_receiver", headers,"Makefile", "multipart/form-data");
-  
-  if (res) {
-    cout << "res exist" << endl;
-    print_header(res->headers);
-    cout << res->body << endl; 
-  }
+  cout << "sizeof(arr)" << sizeof(arr) << endl;
+  cout << "sizeof(*arr)" << sizeof(*arr) << endl;
+  cout << "sizeof(&arr)" << sizeof(&arr) << endl;
 
-}
-
-void print_header(const httplib::Headers headers){
-    for (auto it = headers.begin();it != headers.end();it++){
-            cout << it->first << ": ";
-            cout << it->second << endl;  
-    }
- 
 }

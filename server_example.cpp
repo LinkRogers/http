@@ -25,7 +25,7 @@ int main(void)
 		print_header(req.headers);
 		//cout << req.body << endl;
 		//auto data = pChars;
-		ifstream tspfile("/home/link/Desktop/cpp-httplib/Makefile", ios::binary|ios::ate);
+		ifstream tspfile("/home/link/Desktop/http/Makefile", ios::binary|ios::ate);
 		if (!tspfile.is_open()) 
 		{ 
 				cout << "未成功打开文件" << endl; 
@@ -44,7 +44,19 @@ int main(void)
 				sink.write(&d[offset], std::min(length, DATA_CHUNK_SIZE));
 			},
 			[data] { delete data; });
+	});
 
+	svr.Post("/post", [&](const Request &req, Response &res) {
+		print_header(req.headers);
+		auto data = new std::string("abcdefg");
+
+		res.set_content_provider(
+			data->size(), // Content length
+			[data](uint64_t offset, uint64_t length, DataSink &sink) {
+				const auto &d = *data;
+				sink.write(&d[offset], std::min(length, DATA_CHUNK_SIZE));
+			},
+			[data] { delete data; });
 	});
 
 	svr.listen("localhost", 1234);

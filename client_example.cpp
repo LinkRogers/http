@@ -77,14 +77,6 @@ int show=0;
     offset += request_chunk_size;
     sleep(5);
   }
-  //auto res = cli.Get("/stream", headers);
-  //auto res = cli.Post("/content_receiver", headers,"Makefile", "multipart/form-data");
-  /*
-  if (res) {
-    cout << "res exist" << endl;
-    print_header(res->headers);
-    cout << res->body << endl; 
-  }*/
   cout << "final data: " << endl << data << endl; 
 }
 
